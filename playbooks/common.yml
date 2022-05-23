@@ -24,3 +24,11 @@
       apt:
         name: wireshark
         state: latest
+
+- name: Change timezone on servers
+  hosts: all
+  become: true
+  tasks:
+    - name: set timezone to Africa/Kigali
+      timezone:
+        name: Africa/Kigali
