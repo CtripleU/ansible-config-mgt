@@ -1,5 +1,6 @@
 ---
 - hosts: uat-webservers
   connection: ssh
+  remote_user: ec2-user
   roles:
      - webserver
