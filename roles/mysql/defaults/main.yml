@@ -111,11 +111,12 @@ mysql_databases:
     encoding: utf8
     replicate: 1
 
-mysql_users: []
-   - name: webaccess
-     host: "%"
-     password: adminPass123
-     priv: "tooling.*:ALL"
+mysql_users:
+  - name: webaccess
+    host: "%"
+    password: adminPass123
+    priv: 'tooling.*:ALL'
+    "
 
 mysql_disable_log_bin: false
 
