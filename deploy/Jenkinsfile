@@ -1,45 +1,36 @@
 pipeline {
-    agent any
-
+  agent any
+  parameters {
+    string(name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration')
+    string(name: 'tag', defaultValue: 'all',  description: 'Tags to run ansible playbook against')
+  }
+  environment {
+    branch = 'jenkinspipeline'
+  }
   stages {
-    stage('Build') {
+
+    stage('Clone repo') {
       steps {
-        script {
-          sh 'echo "Building Stage"'
-        }
-      }
-    }
-    
-    stage('Test') {
-      steps {
-        script {
-          sh 'echo "Testing Stage"'
-        }
+        git(branch: branch, url: 'https://github.com/CtripleU/ansible-config-mgt.git')
       }
     }
 
-    stage('Package') {
+    stage('Update ansible.cfg') {
       steps {
-        script {
-          sh 'echo "Packaging Stage"'
-        }
-      }
-    }
-    
-    stage('Clean Up') {
-      steps {
-        script {
-          sh 'echo "Cleaning Stage"'
-        }
+        sh "export ANSIBLE_CONFIG=${WORKSPACE}/deploy/ansible.cfg"
       }
     }
 
-    stage('Deploy') {
+    stage('Run playbook') {
       steps {
-        script {
-          sh 'echo "Deployment Stage"'
-        }
+        ansiblePlaybook(credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory/${inventory}', playbook: 'playbooks/site.yml', tags: '${tag}')
       }
     }
+
+    stage('Clean up') {
+      steps {
+        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenUnstable: true, deleteDirs: true)
+      }
     }
+  }
 }
