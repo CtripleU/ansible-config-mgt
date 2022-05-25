@@ -5,11 +5,18 @@
 # 172.31.23.128 ansible_ssh_user='ec2-user'
 # 172.31.31.8 ansible_ssh_user='ec2-user'
 
+# [db]
+# 172.31.83.58 ansible_ssh_user='ec2-user' 
+
+# [lb]
+# 172.31.20.157 ansible_ssh_user='ubuntu'
+
 [db]
 172.31.83.58 ansible_ssh_user='ec2-user' 
 
-[lb]
+[nginx]
 172.31.20.157 ansible_ssh_user='ubuntu'
+
 
 # [tooling]
 # <Tooling-Web-Server-Private-IP-Address>
