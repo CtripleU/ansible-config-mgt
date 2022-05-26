@@ -19,8 +19,8 @@
 #     dest: .bash_profile
   
 
-- name: reload the /etc/profile
-  shell: source ~/.bash_profile
+# - name: reload the /etc/profile
+#   shell: source ~/.bash_profile
 
 
 - name: add the repository key to repos list
