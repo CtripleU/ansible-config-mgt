@@ -45,8 +45,8 @@
     name: jfrog-artifactory-oss
     state: present
 
-- name: start and enable artifactory
-  ansible.builtin.service:
-    name: artifactory
-    state: started
-    enabled: yes
+# - name: start and enable artifactory
+#   ansible.builtin.service:
+#     name: artifactory
+#     state: started
+#     enabled: yes
