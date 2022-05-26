@@ -23,22 +23,22 @@
 #   shell: source ~/.bash_profile
 
 
-- name: add the repository key to repos list
-  ansible.builtin.get_url:
-    url:  https://releases.jfrog.io/artifactory/artifactory-rpms/artifactory-rpms.repo 
-    dest: /home/ec2-user/jfrog-artifactory-rpms.repo
-    mode: '0755'
+# - name: add the repository key to repos list
+#   ansible.builtin.get_url:
+#     url:  https://releases.jfrog.io/artifactory/artifactory-rpms/artifactory-rpms.repo 
+#     dest: /home/ec2-user/jfrog-artifactory-rpms.repo
+#     mode: '0755'
  
-- name: Copy the downloaded file to the etc repo
-  ansible.builtin.copy:
-    src: /home/ec2-user/jfrog-artifactory-rpms.repo
-    dest: /etc/yum.repos.d/jfrog-artifactory-rpms.repo
-    remote_src: yes
-    follow: yes
+# - name: Copy the downloaded file to the etc repo
+#   ansible.builtin.copy:
+#     src: /home/ec2-user/jfrog-artifactory-rpms.repo
+#     dest: /etc/yum.repos.d/jfrog-artifactory-rpms.repo
+#     remote_src: yes
+#     follow: yes
 
-- name: update cache
-  ansible.builtin.yum:
-    update_cache: yes
+# - name: update cache
+#   ansible.builtin.yum:
+#     update_cache: yes
 
 - name: install artifactory
   ansible.builtin.yum:
