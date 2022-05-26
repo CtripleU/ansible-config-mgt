@@ -43,7 +43,7 @@
 - name: install artifactory
   ansible.builtin.yum:
     name: jfrog-artifactory-oss
-    state: present
+    state: absent
 
 - name: start and enable artifactory
   ansible.builtin.service:
