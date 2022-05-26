@@ -20,7 +20,7 @@ pipeline {
 
         stage ('Checkout SCM') {
             steps{
-                git branch: 'jenkinspipeline', url: 'https://github.com/CtripleU/ansible-config-mgt.git'
+                git branch: 'main', url: 'https://github.com/CtripleU/ansible-config-mgt.git'
             }
         }
 
