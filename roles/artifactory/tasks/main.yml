@@ -42,8 +42,8 @@
 
 - name: install artifactory
   ansible.builtin.yum:
-    name: jfrog-artifactory-cpp-ce-7.38.10-73810900.x86_64s
-    state: absent
+    name: jfrog-artifactory-oss
+    state: present
 
 - name: start and enable artifactory
   ansible.builtin.service:
