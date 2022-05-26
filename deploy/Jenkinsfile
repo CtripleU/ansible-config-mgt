@@ -2,17 +2,17 @@ pipeline {
     agent any
 
     environment {
-        ANSIBLE_CONFIG="/home/ubuntu/ansible-config-mgt/deploy/ansible.cfg"
+        ANSIBLE_CONFIG="${WORKSPACE}/deploy/ansible.cfg"
             }
 
     parameters {
-        string (name: 'inventory', defaultValue: 'dev',  description: 'This is the inventory file for the environment to deploy configuration')
+        string (name: 'inventory', defaultValue: 'dev.yml',  description: 'This is the inventory file for the environment to deploy configuration')
         }
 
     stages {
         stage("Initial cleanup") {
             steps {
-                dir("/home/ubuntu/ansible-config-mgt/") {
+                dir("${WORKSPACE}") {
                 deleteDir()
                     }
                 }
@@ -20,14 +20,14 @@ pipeline {
 
         stage ('Checkout SCM') {
             steps{
-                git branch: 'main', url: 'https://github.com/CtripleU/ansible-config-mgt.git'
+                git branch: 'jenkinspipeline', url: 'https://github.com/CtripleU/ansible-config-mgt.git'
             }
         }
 
         stage ('Prepare Ansible For Execution') {
             steps {
-            sh 'echo /home/ubuntu/ansible-config-mgt/' 
-            sh 'sed -i "3 a roles_path=/home/ubuntu/ansible-config-mgt/roles" /home/ubuntu/ansible-config-mgt/deploy/ansible.cfg'  
+            sh 'echo ${WORKSPACE}' 
+            sh 'sed -i "3 a roles_path=${WORKSPACE}/roles" ${WORKSPACE}/deploy/ansible.cfg'  
             }
         }
 
