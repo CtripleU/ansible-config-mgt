@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        ANSIBLE_CONFIG="${WORKSPACE}/deploy/ansible.cfg"
+        ANSIBLE_CONFIG="/home/ubuntu/ansible-config-mgt/deploy/ansible.cfg"
             }
 
     parameters {
@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage("Initial cleanup") {
             steps {
-                dir("${WORKSPACE}") {
+                dir("/home/ubuntu/ansible-config-mgt/) {
                 deleteDir()
                     }
                 }
@@ -26,14 +26,14 @@ pipeline {
 
         stage ('Prepare Ansible For Execution') {
             steps {
-            sh 'echo ${WORKSPACE}' 
-            sh 'sed -i "3 a roles_path=${WORKSPACE}/roles" ${WORKSPACE}/deploy/ansible.cfg'  
+            sh 'echo /home/ubuntu/ansible-config-mgt/' 
+            sh 'sed -i "3 a roles_path=/home/ubuntu/ansible-config-mgt/roles" /home/ubuntu/ansible-config-mgt/deploy/ansible.cfg'  
             }
         }
 
         stage ('Run Ansible playbook') {
             steps {
-            ansiblePlaybook become: true, colorized: true, credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory/dev', playbook: 'playbooks/site.yml'
+            ansiblePlaybook become: true, colorized: true, credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory/${inventory}', playbook: 'playbooks/site.yml'
             }
         }
 
